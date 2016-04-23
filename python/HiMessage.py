@@ -35,7 +35,7 @@ class HiMessage:
         self.__data['os-version'] = oinfo['version']
         self.__data['os-arch'] = oinfo['arch']
         self.__data['os-kernel'] = oinfo['kernel']
-        self.__data['cpu'] = cputemp.get_cpu_temp()
+        self.__data['cpu-temp'] = cputemp.get_cpu_temp()
         
     def send(self):
         if (self.__debug == True):
