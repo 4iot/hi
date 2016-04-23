@@ -16,7 +16,7 @@ def get_cpu_temp_windows():
     return temperature_reader
 
 def get_cpu_temp_mac():
-    temp = subprocess.check_output(["./bin/macosx_i386/osx-cpu-temp"]).strip()
+    temp = float(subprocess.check_output(["./bin/macosx_i386/osx-cpu-temp"]).strip())
     return temp
 
 def check_hardware():
@@ -49,7 +49,7 @@ def get_cpu_temp_from_hardware(hardware):
         temp = open("/sys/bus/acpi/devices/LNXTHERM:00/thermal_zone/temp").read().strip().rstrip('000')
         temp = str(float(temp)/10.0)
     elif hardware == 6: # RPI
-        temp = subprocess.check_output(["/opt/vc/bin/vcgencmd","measure_temp"]).strip().lstrip('temp=').rstrip('\'C')
+        temp = float(subprocess.check_output(["/opt/vc/bin/vcgencmd","measure_temp"]).strip().lstrip('temp=').rstrip('\'C'))
     else:
         return None
     return temp
@@ -59,7 +59,7 @@ def get_cpu_temp_linux():
     if (hardware == 0):
         print 'Hardware not identified'
         return None
-    return get_cpu_temp_from_hw(hardware)
+    return get_cpu_temp_from_hardware(hardware)
 
 
 def get_cpu_temp():
