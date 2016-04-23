@@ -10,9 +10,9 @@ def get_os_info_linux():
     else:
         info = {}
         info['os'] = 'Linux'
-        info['release'] = rinfo[0]
+        info['dist'] = rinfo[0]
         info['version'] = rinfo[1]
-        info['machine'] = rinfo[2]
+        info['arch'] = platform.processor()
     
     return info
 
@@ -26,6 +26,7 @@ def get_os_info_mac():
     else:
         info = {}
         info['os'] = 'MacOS'
+        info['dist'] = 'X'
         info['version'] = rinfo[0]
         info['arch'] = rinfo[2]
     

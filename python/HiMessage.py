@@ -30,8 +30,11 @@ class HiMessage:
         self.__data['cpu'] = format(info['brand'])
         info = osinfo.get_os_info()
         self.__data['os'] = info['os']
+        self.__data['os-dist'] = info['dist']
         self.__data['os-version'] = info['version']
         self.__data['os-arch'] = info['arch']
+        self.__data['sys'] = platform.system()
+        self.__data['uname'] = platform.uname()
         
     def send(self):
         if (self.__debug == True):
