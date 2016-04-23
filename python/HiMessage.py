@@ -11,7 +11,7 @@ import time
 import osinfo
 
 class HiMessage:
-    "Sends a Hi message to the server with information we can gather"
+    "Sends and manages a Hi message to the server"
     
     __debug = False
     
