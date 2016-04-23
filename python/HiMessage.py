@@ -5,6 +5,7 @@ import json
 import urllib2
 import platform
 import cpuinfo
+import cputemp
 import datetime
 import time
 import osinfo
@@ -28,12 +29,13 @@ class HiMessage:
         self.__data['timestamp'] = now.isoformat()
         cinfo = cpuinfo.get_cpu_info()
         self.__data['cpu'] = format(cinfo['brand'])
-        info = osinfo.get_os_info(cinfo)
-        self.__data['os'] = info['os']
-        self.__data['os-dist'] = info['dist']
-        self.__data['os-version'] = info['version']
-        self.__data['os-arch'] = info['arch']
-        self.__data['os-kernel'] = info['kernel']
+        oinfo = osinfo.get_os_info(cinfo)
+        self.__data['os'] = oinfo['os']
+        self.__data['os-dist'] = oinfo['dist']
+        self.__data['os-version'] = oinfo['version']
+        self.__data['os-arch'] = oinfo['arch']
+        self.__data['os-kernel'] = oinfo['kernel']
+        self.__data['cpu'] = cputemp.get_cpu_temp()
         
     def send(self):
         if (self.__debug == True):
