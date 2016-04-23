@@ -5,7 +5,7 @@ import platform
 
 def get_os_info_linux():
     rinfo = platform.linux_distribution()
-    if (rinfo == None):
+    if (rinfo[1] == ''):
         info = None
     else:
         info = {}
@@ -25,10 +25,9 @@ def get_os_info_mac():
         info = None
     else:
         info = {}
-        info['os'] = 'MacOS X'
-        info['release'] = rinfo[0]
-        info['version'] = rinfo[1]
-        info['machine'] = rinfo[2]
+        info['os'] = 'MacOS'
+        info['version'] = rinfo[0]
+        info['arch'] = rinfo[2]
     
     return info
 

@@ -28,7 +28,10 @@ class HiMessage:
         self.__data['timestamp'] = now.isoformat()
         info = cpuinfo.get_cpu_info()
         self.__data['cpu'] = format(info['brand'])
-        self.__data['os'] = osinfo.get_os_info()
+        info = osinfo.get_os_info()
+        self.__data['os'] = info['os']
+        self.__data['os-version'] = info['version']
+        self.__data['os-arch'] = info['arch']
         
     def send(self):
         if (self.__debug == True):
