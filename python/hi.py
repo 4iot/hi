@@ -1,7 +1,13 @@
+#!/usr/bin/env python
+# -*- coding: UTF-8 -*-
 
+import sys
 from HiMessage import HiMessage
 
 msg = HiMessage()
-msg.info('hello')
-msg.add('pi', 3.14)
+
+message = sys.argv[1]
+if message != None:
+    msg.info(message)
+
 msg.send()
