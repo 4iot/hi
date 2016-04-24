@@ -51,6 +51,7 @@ def get_network_interfaces_linux():
        
         index += 1
     ifaces = add_interface(ifaces, iface)
+
     return ifaces
 
 def get_network_interfaces_mac():
