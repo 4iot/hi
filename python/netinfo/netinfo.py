@@ -26,7 +26,7 @@ def get_network_interfaces_linux():
     ifaces = {}
     iface = {}
     
-    # res = subprocess.check_output(['ifconfig', '-a']).splitlines()
+    res = subprocess.check_output(['ifconfig', '-a']).splitlines()
     # with open ("test/ubuntu-14.04.1.txt", "r") as myfile:
     #with open ("test/raspbian-4.4.7.txt", "r") as myfile:
     #    res = myfile.readlines()
