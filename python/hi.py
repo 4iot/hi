@@ -6,8 +6,15 @@ from HiMessage import HiMessage
 
 msg = HiMessage()
 
-message = str(sys.argv)
-if message != None:
+if (len(sys.argv) > 0):
+    index = 1
+    message = ""
+    while (index < len(sys.argv)):
+        message += sys.argv[index] + ' '
+        index += 1
+    message = message.rstrip()
+
+if (message != None) and (message != ""):
     msg.info(message)
 
 msg.send()
