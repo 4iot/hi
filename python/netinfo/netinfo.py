@@ -28,8 +28,8 @@ def get_network_interfaces_linux():
     
     # res = subprocess.check_output(['ifconfig', '-a']).splitlines()
     # with open ("test/ubuntu-14.04.1.txt", "r") as myfile:
-    with open ("test/raspbian-4.4.7.txt", "r") as myfile:
-        res = myfile.readlines()
+    #with open ("test/raspbian-4.4.7.txt", "r") as myfile:
+    #    res = myfile.readlines()
     length = len(res)
     index = 0
     context = ''
@@ -88,3 +88,4 @@ def get_network_interfaces_mac():
 #interfaces = get_network_interfaces()
 #print interfaces
 
+#
