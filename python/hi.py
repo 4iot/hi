@@ -6,7 +6,7 @@ from HiMessage import HiMessage
 
 msg = HiMessage()
 
-message = sys.argv[1]
+message = str(sys.argv)
 if message != None:
     msg.info(message)
 
