@@ -27,7 +27,7 @@ def get_network_interfaces_linux():
     iface = {}
     
     res = subprocess.check_output(['ifconfig', '-a']).splitlines()
-    # with open ("test/ubuntu-14.04.1.txt", "r") as myfile:
+    #with open ("test/ubuntu-14.04.1.txt", "r") as myfile:
     #with open ("test/raspbian-4.4.7.txt", "r") as myfile:
     #    res = myfile.readlines()
     length = len(res)
@@ -35,19 +35,21 @@ def get_network_interfaces_linux():
     context = ''
     while (index < length):
         currentLine = res[index]
+	print currentLine
         values = currentLine.split()
-        if (currentLine[0].isspace() != True):
-            ifaces = add_interface(ifaces, iface)
-            iface = {}
-            iface['name'] = values[0]
-            if (len(values) > 4):
-                iface['mac'] = values[4]
-        else:
-            if (len(values) > 0):
-                if (values[0] == 'inet'):
-                    iface['ipv4'] = values[1][5:]
-                elif (values[0] == 'inet6'):
-                    iface['ipv6'] = values[2]
+	if currentLine != '':
+            if (currentLine[0].isspace() != True):
+                ifaces = add_interface(ifaces, iface)
+                iface = {}
+                iface['name'] = values[0]
+                if (len(values) > 4):
+                    iface['mac'] = values[4]
+            else:
+                if (len(values) > 0):
+                    if (values[0] == 'inet'):
+                        iface['ipv4'] = values[1][5:]
+                    elif (values[0] == 'inet6'):
+                        iface['ipv6'] = values[2]
        
         index += 1
     ifaces = add_interface(ifaces, iface)
