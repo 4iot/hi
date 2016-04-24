@@ -35,9 +35,8 @@ def get_network_interfaces_linux():
     context = ''
     while (index < length):
         currentLine = res[index]
-	print currentLine
         values = currentLine.split()
-	if currentLine != '':
+        if currentLine != '':
             if (currentLine[0].isspace() != True):
                 ifaces = add_interface(ifaces, iface)
                 iface = {}
