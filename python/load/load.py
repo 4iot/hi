@@ -7,4 +7,4 @@ def get_cpu_load():
     res = subprocess.check_output(['sh', '-c', 'ps -e -o %cpu | awk \'{s+=$1} END {print s}\''])
     return float(res)
 
-print get_cpu_load()
+#print get_cpu_load()
