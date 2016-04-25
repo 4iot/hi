@@ -52,13 +52,10 @@ class OsInfo:
     def getOsInfo(self, cinfo = None):
         info = None
     
-        print 'testing linux'
         info = self.getOsInfoLinux(cinfo)
         if not info:
-            print 'testing windows'
             info = self.getOsInfoWindows(cinfo)
         if not info:
-            print 'testing mac'
             info = self.getOsInfoMacOS(cinfo)
         return info
     

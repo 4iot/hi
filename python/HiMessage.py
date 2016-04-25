@@ -8,9 +8,9 @@ import cpuinfo
 import cputemp
 import datetime
 import time
-import osinfo
+from osinfo import OsInfo
 import netinfo
-import load
+from load import Load
 
 class HiMessage:
     "Sends and manages a Hi message to the server"
@@ -31,14 +31,17 @@ class HiMessage:
         self.__data['timestamp'] = now.isoformat()
         cinfo = cpuinfo.get_cpu_info()
         self.__data['cpu'] = format(cinfo['brand'])
-        oinfo = osinfo.get_os_info(cinfo)
+        osinfo = OsInfo()
+        oinfo = osinfo.getOsInfo(cinfo)
         self.__data['os'] = oinfo['os']
         self.__data['os-dist'] = oinfo['dist']
         self.__data['os-version'] = oinfo['version']
         self.__data['os-arch'] = oinfo['arch']
         self.__data['os-kernel'] = oinfo['kernel']
         self.__data['cpu-temp'] = cputemp.get_cpu_temp()
-        self.__data['cpu-load'] = load.get_cpu_load()
+        l = Load()
+        self.__data['cpu-load'] = l.getCpuLoad()
+        self.__data['storage'] = l.getStorageStatus()
         self.__data['network'] = netinfo.get_network_interfaces()
         
     def send(self):

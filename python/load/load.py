@@ -46,7 +46,7 @@ class Load:
             
         return drives
 
-l = Load()
-print l.getCpuLoad()
-print l.getStorageStatus()
+#l = Load()
+#print l.getCpuLoad()
+#print l.getStorageStatus()
 
