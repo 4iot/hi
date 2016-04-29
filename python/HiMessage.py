@@ -28,7 +28,7 @@ class HiMessage:
         self.__data = {}
         now = datetime.datetime.now()
         self.__data['seq'] = int(round(time.time() * 1000))
-        self.__data['timestamp'] = now.isoformat()
+        self.__data['timestamp-client'] = now.isoformat()
         cinfo = cpuinfo.get_cpu_info()
         self.__data['cpu'] = format(cinfo['brand'])
         osinfo = OsInfo()
