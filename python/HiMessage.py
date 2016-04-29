@@ -48,7 +48,7 @@ class HiMessage:
         if (self.__debug == True):
             url = 'http://localhost:8080/io.oplo.receiver/hi'
         else:
-            url = 'http://api.4iot.io/io.oplo.receiver/hi'
+            url = 'http://api.4iot.io/hi'
         req = urllib2.Request(url)
         req.add_header('Content-Type', 'application/json')
         try:
