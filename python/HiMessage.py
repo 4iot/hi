@@ -6,10 +6,12 @@ import urllib2
 import platform
 import cpuinfo
 import cputemp
+import cputimes
 import datetime
 import time
 from osinfo import OsInfo
 import netinfo
+import meminfo
 from load import Load
 
 class HiMessage:
@@ -28,21 +30,32 @@ class HiMessage:
         self.__data = {}
         now = datetime.datetime.now()
         self.__data['seq'] = int(round(time.time() * 1000))
-        self.__data['timestamp-client'] = now.isoformat()
+        self.__data['tsClient'] = now.isoformat()
         cinfo = cpuinfo.get_cpu_info()
         self.__data['cpu'] = format(cinfo['brand'])
         osinfo = OsInfo()
         oinfo = osinfo.getOsInfo(cinfo)
         self.__data['os'] = oinfo['os']
-        self.__data['os-dist'] = oinfo['dist']
-        self.__data['os-version'] = oinfo['version']
-        self.__data['os-arch'] = oinfo['arch']
-        self.__data['os-kernel'] = oinfo['kernel']
-        self.__data['cpu-temp'] = cputemp.get_cpu_temp()
+        self.__data['osDist'] = oinfo['dist']
+        self.__data['osVersion'] = oinfo['version']
+        self.__data['osArch'] = oinfo['arch']
+        self.__data['osKernel'] = oinfo['kernel']
+        self.__data['cpuTemp'] = cputemp.get_cpu_temp()
         l = Load()
-        self.__data['cpu-load'] = l.getCpuLoad()
+        self.__data['cpuLoad'] = l.getCpuLoad()
+        MemInfo = meminfo.getMemoryStatus()
+        self.__data['memAvail'] = MemInfo['memAvail'] / 1024
+        self.__data['memUsed'] = MemInfo['memUsed'] / 1024
+        self.__data['swapAvail'] = MemInfo['swpAvail'] / 1024
+        self.__data['swapUsed'] = MemInfo['swpUsed'] / 1024
         self.__data['storage'] = l.getStorageStatus()
         self.__data['network'] = netinfo.get_network_interfaces()
+        CpuTimes = cputimes.get_cpu_times()
+        self.__data['cpuUser'] = CpuTimes['user']
+        self.__data['cpuSystem'] = CpuTimes['system']
+        self.__data['cpuIdle'] = CpuTimes['idle']
+        self.__data['ioWait'] = CpuTimes['iowt']
+        self.__data['UpTime'] = CpuTimes['uptime']
         
     def send(self):
         if (self.__debug == True):
