@@ -28,20 +28,20 @@ class Load:
             current = res[index].split()
             drive = {}
             if (self.__osi.isMacOS() == True):
-                drive['dev'] = current[0]
-                drive['used'] = int(current[2])
-                drive['avail'] = int(current[3])
-                drive['mount'] = current[8]
+                drive['diskDev'] = current[0]
+		drive['diskUsed'] = int(current[2]) / 1024
+                drive['diskAvail'] = int(current[3]) / 1024
+                drive['diskMount'] = current[8]
             elif (self.__osi.isLinux() == True):
-                drive['dev'] = current[0]
-                drive['used'] = current[2]
-                drive['avail'] = current[3]
-                drive['mount'] = current[5]
+                drive['diskDev'] = current[0]
+                drive['diskUsed'] = int(current[2]) / 1024
+                drive['diskAvail'] = int(current[3]) / 1024
+                drive['diskMount'] = current[5]
             else:
                 print 'Error: unknown OS'
             if (len(drive) > 0):
-                drives[drive['mount']] = drive
-                del drive['mount']
+                drives[drive['diskMount']] = drive
+                del drive['diskMount']
             index += 1
             
         return drives
