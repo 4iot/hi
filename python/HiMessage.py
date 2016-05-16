@@ -13,6 +13,8 @@ from osinfo import OsInfo
 import netinfo
 import meminfo
 from load import Load
+import sys
+from urllib2 import HTTPError
 
 class HiMessage:
     "Sends and manages a Hi message to the server"
@@ -59,17 +61,19 @@ class HiMessage:
         
     def send(self):
         if (self.__debug == True):
-            url = 'http://localhost:8080/io.oplo.receiver/hi'
+            url = 'http://localhost:8080/ROOT/hi'
         else:
             url = 'http://api.4iot.io/hi'
         req = urllib2.Request(url)
         req.add_header('Content-Type', 'application/json')
         try:
             response = urllib2.urlopen(req, json.dumps(self.__data))
-            the_page = response.read()
-            print the_page
-        except:
-            print "HTTP Post error"
+        except HTTPError as e:
+            print ("HTTP Post error: #%d (%s), while connecting to %s." % (e.code, e.reason, url))
+            return
+
+        the_page = response.read()
+        print the_page
 
     def add(self, key, value):
         self.__data[key] = value
