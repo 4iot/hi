@@ -91,13 +91,13 @@ class HiMessage:
 		a = 1
 	else:
 		deviceId = match.group(1)
+		idFileName = expanduser("~") + '/.hidevid'
 		fileExists = os.path.exists(idFileName)
 		from os.path import expanduser
 		if fileExists:
                         # if file already exists, remove to be replaced
                         os.remove(idFileName)
 
-		idFileName = expanduser("~") + '/.hidevid'
 		fileExists = os.path.exists(idFileName)
 		idFileHanle = open(idFileName,'w')
 		idFileHandle.write(deviceId)
