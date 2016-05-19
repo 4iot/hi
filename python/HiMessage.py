@@ -100,7 +100,7 @@ class HiMessage:
                         os.remove(idFileName)
 
 		fileExists = os.path.exists(idFileName)
-		idFileHanle = open(idFileName,'w')
+		idFileHandle = open(idFileName,'w')
 		idFileHandle.write(deviceId)
 		idFileHandle.close
 		self.__data['id'] = deviceId
