@@ -91,6 +91,8 @@ class HiMessage:
 		a = 1
 	else:
 		deviceId = match.group(1)
+		from os.path import expanduser
+		idFileName = expanduser("~") + '/.hidevid'
 		fileExists = os.path.exists(idFileName)
 		from os.path import expanduser
 		if fileExists:
