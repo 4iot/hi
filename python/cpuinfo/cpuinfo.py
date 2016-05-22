@@ -328,6 +328,7 @@ def to_raw_hz(ticks, scale):
 	ticks = ticks.lstrip('0')
 	old_index = ticks.index('.')
 	ticks = ticks.replace('.', '')
+	ticks = ticks.replace(',', '')
 	ticks = ticks.ljust(scale + old_index+1, '0')
 	new_index = old_index + scale
 	ticks = '{0}.{1}'.format(ticks[:new_index], ticks[new_index:])
