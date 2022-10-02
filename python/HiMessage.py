@@ -14,6 +14,8 @@ import netinfo
 import meminfo
 from load import Load
 import sys
+import re
+import os
 from urllib2 import HTTPError
 
 class HiMessage:
@@ -30,11 +32,22 @@ class HiMessage:
 
     def reset(self):
         self.__data = {}
+	from os.path import expanduser
+	idFileName = expanduser("~") + '/.hidevid'
+	fileExists = os.path.exists(idFileName)
+	if ( fileExists ):
+		idFileHandle = open(idFileName,'r')
+		deviceId = idFileHandle.readline()
+		deviceId = deviceId.strip()
+		self.__data['id'] = deviceId
+		idFileHandle.close
+		
         now = datetime.datetime.now()
         self.__data['seq'] = int(round(time.time() * 1000))
         self.__data['tsClient'] = now.isoformat()
         cinfo = cpuinfo.get_cpu_info()
         self.__data['cpu'] = format(cinfo['brand'])
+        self.__data['cpuCount'] = cinfo['count']
         osinfo = OsInfo()
         oinfo = osinfo.getOsInfo(cinfo)
         self.__data['os'] = oinfo['os']
@@ -73,6 +86,24 @@ class HiMessage:
             return
 
         the_page = response.read()
+	match = re.search('device is now identified as \[(\w{33})',the_page)
+	if ( match == None ):
+		a = 1
+	else:
+		deviceId = match.group(1)
+		fileExists = os.path.exists(idFileName)
+		from os.path import expanduser
+		if fileExists:
+                        # if file already exists, remove to be replaced
+                        os.remove(idFileName)
+
+		idFileName = expanduser("~") + '/.hidevid'
+		fileExists = os.path.exists(idFileName)
+		idFileHanle = open(idFileName,'w')
+		idFileHandle.write(deviceId)
+		idFileHandle.close
+		self.__data['id'] = deviceId
+	
         print the_page
 
     def add(self, key, value):

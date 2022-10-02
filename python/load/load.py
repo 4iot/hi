@@ -19,7 +19,7 @@ class Load:
         return float(res)
 
     def getStorageStatus(self):
-        res = subprocess.check_output(['sh', '-c', 'df -k | grep "/dev/" | grep -v tmp']).splitlines()
+        res = subprocess.check_output(['sh', '-c', 'df -Pk | grep "/dev/" | grep -v tmp']).splitlines()
         drives = {}
         index = 0;
         count = len(res)
